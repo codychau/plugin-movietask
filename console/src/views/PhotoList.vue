@@ -292,7 +292,7 @@ const onAttachmentsSelect = async (attachments: AttachmentLike[]) => {
 
   await Promise.all(createRequests);
 
-  Toast.success(`新建成功，一共创建了 ${photos.length} 张图片。`);
+  Toast.success(`新建成功，一共创建了 ${photos.length} 个任务。`);
   pageRefetch();
 };
 
@@ -328,7 +328,7 @@ const pageRefetch = async () => {
     :accepts="['image/*']"
     @select="onAttachmentsSelect"
   />
-  <VPageHeader title="图库">
+  <VPageHeader title="影库">
     <template #icon>
       <RiImage2Line class="photos-mr-2 photos-self-center" />
     </template>
@@ -395,10 +395,10 @@ const pageRefetch = async () => {
           </template>
           <VLoading v-if="isLoading" />
           <Transition v-else-if="!selectedGroup" appear name="fade">
-            <VEmpty message="请选择或新建分组" title="未选择分组"></VEmpty>
+            <VEmpty message="请选择或新建分类" title="未选择分类"></VEmpty>
           </Transition>
           <Transition v-else-if="!searchResults.length" appear name="fade">
-            <VEmpty message="你可以尝试刷新或者新建图片" title="当前没有图片">
+            <VEmpty message="你可以尝试刷新或者新建任务" title="当前没有任务">
               <template #actions>
                 <VSpace>
                   <VButton @click="refetch"> 刷新</VButton>
@@ -410,7 +410,7 @@ const pageRefetch = async () => {
                     <template #icon>
                       <IconAddCircle class="h-full w-full" />
                     </template>
-                    新增图片
+                    新增任务
                   </VButton>
                 </VSpace>
               </template>

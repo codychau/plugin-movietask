@@ -47,7 +47,7 @@ const isUpdateMode = computed(() => {
 });
 const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
 const modalTitle = computed(() => {
-  return isUpdateMode.value ? "编辑分组" : "新建分组";
+  return isUpdateMode.value ? "编辑分类" : "新建分类";
 });
 const annotationsGroupFormRef = ref();
 
@@ -146,7 +146,7 @@ watch(Meta_Enter, (v) => {
         <div class="mt-5 divide-y divide-gray-100 md:col-span-3 md:mt-0">
           <FormKit
             name="displayName"
-            label="分组名称"
+            label="分类名称"
             type="text"
             validation="required"
             help="可根据此名称查询图片"

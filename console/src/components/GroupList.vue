@@ -97,8 +97,8 @@ const handleSaveInBatch = async () => {
 
 const handleDelete = async (group: PhotoGroup) => {
   Dialog.warning({
-    title: "确定要删除该分组吗？",
-    description: "将同时删除该分组下的所有图片，该操作不可恢复。",
+    title: "确定要删除该分类吗？",
+    description: "将同时删除该分类下的所有图片，该操作不可恢复。",
     confirmType: "danger",
     onConfirm: async () => {
       try {
@@ -133,10 +133,10 @@ defineExpose({
     :group="updateGroup"
     @close="refetch()"
   />
-  <VCard :body-class="['!p-0']" title="分组">
+  <VCard :body-class="['!p-0']" title="分类">
     <VLoading v-if="loading" />
     <Transition v-else-if="!groups || !groups.length" appear name="fade">
-      <VEmpty message="你可以尝试刷新或者新建分组" title="当前没有分组">
+      <VEmpty message="你可以尝试刷新或者新建分类" title="当前没有分类">
         <template #actions>
           <VSpace>
             <VButton size="sm" @click="refetch()"> 刷新</VButton>
@@ -171,7 +171,7 @@ defineExpose({
               <template #start>
                 <VEntityField
                   :title="group.spec?.displayName"
-                  :description="`${group.status.photoCount || 0} 个图片`"
+                  :description="`${group.status.photoCount || 0} 个任务`"
                 ></VEntityField>
               </template>
 
@@ -205,7 +205,7 @@ defineExpose({
           type="secondary"
           @click="handleOpenEditingModal(undefined)"
         >
-          新增分组
+          新增分类
         </VButton>
       </Transition>
     </template>

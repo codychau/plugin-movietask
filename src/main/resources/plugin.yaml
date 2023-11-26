@@ -1,20 +1,20 @@
 apiVersion: plugin.halo.run/v1alpha1
 kind: Plugin
 metadata:
-  name: PluginPhotos
+  name: PluginMovieTask
 spec:
   enabled: true
   version: 1.0.0
-  requires: ">=2.8.0"
+  requires: ">=2.10.0"
   author:
-    name: Halo OSS Team
+    name: Cody
     website: https://github.com/halo-dev
   logo: logo.svg
   homepage: https://github.com/halo-sigs/plugin-photos
-  configMapName: plugin-photos-configmap
-  settingName: plugin-photos-settings
-  displayName: "图库管理"
-  description: "图库管理模块"
+  configMapName: plugin-movietask-configmap
+  settingName: plugin-movietask-settings
+  displayName: "影库管理"
+  description: "影库管理模块"
   license:
     - name: "GPL-3.0"
       url: "https://github.com/halo-sigs/plugin-photos/blob/main/LICENSE"

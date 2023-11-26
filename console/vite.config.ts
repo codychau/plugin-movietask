@@ -27,7 +27,7 @@ const commonConfig = {
     emptyOutDir: true,
     lib: {
       entry: "src/index.ts",
-      name: "PluginPhotos",
+      name: "PluginMovieTask",
       formats: ["iife"],
       fileName: () => "main.js",
     },

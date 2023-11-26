@@ -9,13 +9,13 @@ export default definePlugin({
     {
       parentName: "Root",
       route: {
-        path: "/photos",
-        name: "Photos",
+        path: "/movietask",
+        name: "MovieTask",
         component: PhotoList,
         meta: {
-          permissions: ["plugin:photos:view"],
+          permissions: ["plugin:movietask:view"],
           menu: {
-            name: "图库",
+            name: "影库",
             group: "content",
             icon: markRaw(RiImage2Line),
           },

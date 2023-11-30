@@ -1,17 +1,17 @@
-package run.halo.photos.service;
+package run.halo.movietask.service;
 
 import reactor.core.publisher.Mono;
 import run.halo.app.extension.ListResult;
 import run.halo.app.extension.router.IListRequest.QueryListRequest;
-import run.halo.photos.PhotoGroup;
+import run.halo.movietask.MovieTaskGroup;
 
 /**
- * A service for {@link PhotoGroup}.
+ * A service for {@link MovieTaskGroup}.
  *
- * @author LIlGG
+ * @author cody
  * @since 2.0.0
  */
-public interface PhotoGroupService {
+public interface MovieTaskGroupService {
     
     /**
      * List photo groups.
@@ -19,7 +19,7 @@ public interface PhotoGroupService {
      * @param request request
      * @return a mono of list result
      */
-    Mono<ListResult<PhotoGroup>> listPhotoGroup(QueryListRequest request);
+    Mono<ListResult<MovieTaskGroup>> listMovieTaskGroup(QueryListRequest request);
     
     /**
      * Create a photo group.
@@ -27,6 +27,6 @@ public interface PhotoGroupService {
      * @param name name
      * @return a mono of photo group
      */
-    Mono<PhotoGroup> deletePhotoGroup(String name);
+    Mono<MovieTaskGroup> deleteMovieTaskGroup(String name);
     
 }

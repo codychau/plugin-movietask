@@ -1,24 +1,24 @@
-package run.halo.photos.vo;
+package run.halo.movietask.vo;
 
 import lombok.Builder;
 import lombok.Value;
 import run.halo.app.extension.MetadataOperator;
 import run.halo.app.theme.finders.vo.ExtensionVoOperator;
-import run.halo.photos.Photo;
+import run.halo.movietask.MovieTask;
 
 /**
  * @author LIlGG
  */
 @Value
 @Builder
-public class PhotoVo implements ExtensionVoOperator {
+public class MovieTaskVo implements ExtensionVoOperator {
     
     MetadataOperator metadata;
     
-    Photo.PhotoSpec spec;
+    MovieTask.MovieSpec spec;
     
-    public static PhotoVo from(Photo photo) {
-        return PhotoVo.builder()
+    public static MovieTaskVo from(MovieTask photo) {
+        return MovieTaskVo.builder()
             .metadata(photo.getMetadata())
             .spec(photo.getSpec())
             .build();

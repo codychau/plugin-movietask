@@ -12,7 +12,7 @@ export interface Metadata {
   deletionTimestamp?: string | null;
 }
 
-export interface PhotoGroupSpec {
+export interface MovieTaskGroupSpec {
   displayName: string;
   priority?: number;
 }
@@ -21,7 +21,7 @@ export interface PostGroupStatus {
   photoCount: number;
 }
 
-export interface PhotoSpec {
+export interface MovieTaskSpec {
   displayName: string;
   description?: string;
   url: string;
@@ -30,38 +30,38 @@ export interface PhotoSpec {
   groupName: string;
 }
 
-export interface Photo {
-  spec: PhotoSpec;
+export interface MovieTask {
+  spec: MovieTaskSpec;
   apiVersion: string;
   kind: string;
   metadata: Metadata;
 }
 
-export interface PhotoGroup {
-  spec: PhotoGroupSpec;
+export interface MovieTaskGroup {
+  spec: MovieTaskGroupSpec;
   apiVersion: string;
   kind: string;
   metadata: Metadata;
   status: PostGroupStatus;
 }
 
-export interface PhotoList {
+export interface MovieTaskList {
   page: number;
   size: number;
   total: number;
   totalPages: number;
-  items: Array<Photo>;
+  items: Array<MovieTask>;
   first: boolean;
   last: boolean;
   hasNext: boolean;
   hasPrevious: boolean;
 }
 
-export interface PhotoGroupList {
+export interface MovieTaskGroupList {
   page: number;
   size: number;
   total: number;
-  items: Array<PhotoGroup>;
+  items: Array<MovieTaskGroup>;
   first: boolean;
   last: boolean;
   hasNext: boolean;

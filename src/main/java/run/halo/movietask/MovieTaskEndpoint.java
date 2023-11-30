@@ -1,6 +1,4 @@
-package run.halo.photos;
-
-import static org.springdoc.core.fn.builders.apiresponse.Builder.responseBuilder;
+package run.halo.movietask;
 
 import lombok.AllArgsConstructor;
 import org.springdoc.webflux.core.fn.SpringdocRouteBuilder;
@@ -13,7 +11,9 @@ import run.halo.app.core.extension.endpoint.CustomEndpoint;
 import run.halo.app.extension.GroupVersion;
 import run.halo.app.extension.ListResult;
 import run.halo.app.extension.router.QueryParamBuildUtil;
-import run.halo.photos.service.PhotoService;
+import run.halo.movietask.service.MovieTaskService;
+
+import static org.springdoc.core.fn.builders.apiresponse.Builder.responseBuilder;
 
 /**
  * A custom endpoint for {@link Photo}.
@@ -23,9 +23,9 @@ import run.halo.photos.service.PhotoService;
  */
 @Component
 @AllArgsConstructor
-public class PhotoEndpoint implements CustomEndpoint {
+public class MovieTaskEndpoint implements CustomEndpoint {
     
-    private final PhotoService photoService;
+    private final MovieTaskService movieTaskService;
     
     @Override
     public RouterFunction<ServerResponse> endpoint() {
@@ -36,9 +36,9 @@ public class PhotoEndpoint implements CustomEndpoint {
                     .description("List photos.")
                     .tag(tag)
                     .response(responseBuilder().implementation(
-                        ListResult.generateGenericClass(Photo.class)));
+                        ListResult.generateGenericClass(MovieTask.class)));
                 QueryParamBuildUtil.buildParametersFromType(builder,
-                    PhotoQuery.class
+                    MovieTaskQuery.class
                 );
             }
         ).build();
@@ -50,8 +50,8 @@ public class PhotoEndpoint implements CustomEndpoint {
     }
     
     private Mono<ServerResponse> listPhoto(ServerRequest serverRequest) {
-        PhotoQuery query = new PhotoQuery(serverRequest.queryParams());
-        return photoService.listPhoto(query).flatMap(
+        MovieTaskQuery query = new MovieTaskQuery(serverRequest.queryParams());
+        return movieTaskService.listPhoto(query).flatMap(
             photos -> ServerResponse.ok().bodyValue(photos));
     }
     

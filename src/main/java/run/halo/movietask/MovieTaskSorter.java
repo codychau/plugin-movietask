@@ -1,10 +1,10 @@
-package run.halo.photos;
+package run.halo.movietask;
 
+import org.springframework.util.comparator.Comparators;
 import java.time.Instant;
 import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.Function;
-import org.springframework.util.comparator.Comparators;
 
 /**
  * A sorter for {@link Photo}.
@@ -12,23 +12,23 @@ import org.springframework.util.comparator.Comparators;
  * @author LIlGG
  * @since 1.0.0
  */
-public enum PhotoSorter {
+public enum MovieTaskSorter {
     DISPLAY_NAME,
     
     CREATE_TIME;
     
-    static final Function<Photo, String> name = photo -> photo.getMetadata()
+    static final Function<MovieTask, String> name = photo -> photo.getMetadata()
         .getName();
     
     /**
-     * Converts {@link Comparator} from {@link PhotoSorter} and ascending.
+     * Converts {@link Comparator} from {@link MovieTaskSorter} and ascending.
      *
-     * @param sorter    a {@link PhotoSorter}
+     * @param sorter    a {@link MovieTaskSorter}
      * @param ascending ascending if true, otherwise descending
-     * @return a {@link Comparator} of {@link Photo}
+     * @return a {@link Comparator} of {@link MovieTask}
      */
-    public static Comparator<Photo> from(PhotoSorter sorter,
-        Boolean ascending) {
+    public static Comparator<MovieTask> from(MovieTaskSorter sorter,
+                                         Boolean ascending) {
         if (Objects.equals(true, ascending)) {
             return from(sorter);
         }
@@ -36,23 +36,23 @@ public enum PhotoSorter {
     }
     
     /**
-     * Converts {@link Comparator} from {@link PhotoSorter}.
+     * Converts {@link Comparator} from {@link MovieTaskSorter}.
      *
-     * @param sorter a {@link PhotoSorter}
+     * @param sorter a {@link MovieTaskSorter}
      * @return a {@link Comparator} of {@link Photo}
      */
-    static Comparator<Photo> from(PhotoSorter sorter) {
+    static Comparator<MovieTask> from(MovieTaskSorter sorter) {
         if (sorter == null) {
             return createTimeComparator();
         }
         if (CREATE_TIME.equals(sorter)) {
-            Function<Photo, Instant> comparatorFunc
+            Function<MovieTask, Instant> comparatorFunc
                 = photo -> photo.getMetadata().getCreationTimestamp();
             return Comparator.comparing(comparatorFunc).thenComparing(name);
         }
         
         if (DISPLAY_NAME.equals(sorter)) {
-            Function<Photo, String> comparatorFunc = moment -> moment.getSpec()
+            Function<MovieTask, String> comparatorFunc = moment -> moment.getSpec()
                 .getDisplayName();
             return Comparator.comparing(comparatorFunc, Comparators.nullsLow())
                 .thenComparing(name);
@@ -62,13 +62,13 @@ public enum PhotoSorter {
     }
     
     /**
-     * Converts {@link PhotoSorter} from string.
+     * Converts {@link MovieTaskSorter} from string.
      *
      * @param sort sort string
-     * @return a {@link PhotoSorter}
+     * @return a {@link MovieTaskSorter}
      */
-    static PhotoSorter convertFrom(String sort) {
-        for (PhotoSorter sorter : values()) {
+    static MovieTaskSorter convertFrom(String sort) {
+        for (MovieTaskSorter sorter : values()) {
             if (sorter.name().equalsIgnoreCase(sort)) {
                 return sorter;
             }
@@ -81,8 +81,8 @@ public enum PhotoSorter {
      *
      * @return a {@link Comparator} of {@link Photo}
      */
-    static Comparator<Photo> createTimeComparator() {
-        Function<Photo, Instant> comparatorFunc = photo -> photo.getMetadata()
+    static Comparator<MovieTask> createTimeComparator() {
+        Function<MovieTask, Instant> comparatorFunc = photo -> photo.getMetadata()
             .getCreationTimestamp();
         return Comparator.comparing(comparatorFunc).thenComparing(name);
     }

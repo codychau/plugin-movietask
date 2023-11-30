@@ -1,12 +1,5 @@
-package run.halo.photos;
+package run.halo.movietask;
 
-import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
-import static org.springframework.web.reactive.function.server.RouterFunctions.route;
-import static run.halo.app.theme.router.PageUrlUtils.totalPage;
-
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -21,9 +14,17 @@ import reactor.core.publisher.Mono;
 import run.halo.app.plugin.ReactiveSettingFetcher;
 import run.halo.app.theme.router.PageUrlUtils;
 import run.halo.app.theme.router.UrlContextListResult;
-import run.halo.photos.finders.PhotoFinder;
-import run.halo.photos.vo.PhotoGroupVo;
-import run.halo.photos.vo.PhotoVo;
+import run.halo.movietask.finders.MovieTaskFinder;
+import run.halo.movietask.vo.MovieTaskGroupVo;
+import run.halo.movietask.vo.MovieTaskVo;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+import static org.springframework.web.reactive.function.server.RequestPredicates.GET;
+import static org.springframework.web.reactive.function.server.RouterFunctions.route;
+import static run.halo.app.theme.router.PageUrlUtils.totalPage;
 
 /**
  * Provides a <code>/photos</code> route for the topic end to handle routing.
@@ -32,11 +33,11 @@ import run.halo.photos.vo.PhotoVo;
  */
 @Component
 @AllArgsConstructor
-public class PhotoRouter {
+public class MovieTaskRouter {
     
     private static final String GROUP_PARAM = "group";
     
-    private PhotoFinder photoFinder;
+    private MovieTaskFinder photoFinder;
     
     private final ReactiveSettingFetcher settingFetcher;
     
@@ -62,7 +63,7 @@ public class PhotoRouter {
         );
     }
     
-    private Mono<UrlContextListResult<PhotoVo>> photoList(ServerRequest request) {
+    private Mono<UrlContextListResult<MovieTaskVo>> photoList(ServerRequest request) {
         String path = request.path();
         int pageNum = pageNumInPathVariable(request);
         String group = groupPathQueryParam(request);
@@ -70,7 +71,7 @@ public class PhotoRouter {
             .map(item -> item.get("pageSize").asInt(10))
             .defaultIfEmpty(10)
             .flatMap(pageSize -> photoFinder.list(pageNum, pageSize, group)
-                .map(list -> new UrlContextListResult.Builder<PhotoVo>()
+                .map(list -> new UrlContextListResult.Builder<MovieTaskVo>()
                     .listResult(list)
                     .nextUrl(appendGroupParam(
                         PageUrlUtils.nextPageUrl(path, totalPage(list)), group)
@@ -106,7 +107,7 @@ public class PhotoRouter {
             "图库");
     }
     
-    private Mono<List<PhotoGroupVo>> photoGroups() {
+    private Mono<List<MovieTaskGroupVo>> photoGroups() {
         return photoFinder.groupBy().collectList();
     }
 }

@@ -1,26 +1,27 @@
-package run.halo.photos;
+package run.halo.movietask;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import java.util.Objects;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import run.halo.app.extension.AbstractExtension;
 import run.halo.app.extension.GVK;
+
+import java.util.Objects;
 
 /**
  * @author ryanwang
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@GVK(group = "core.halo.run", version = "v1alpha1", kind = "Photo", plural = "photos",
-    singular = "photo")
-public class Photo extends AbstractExtension {
+@GVK(group = "core.halo.run", version = "v1alpha1", kind = "MovieTask", plural = "movietask",
+    singular = "movietask")
+public class MovieTask extends AbstractExtension {
 
-    private PhotoSpec spec;
+    private MovieSpec spec;
 
     @Data
-    public static class PhotoSpec {
+    public static class MovieSpec {
         @Schema(required = true)
         private String displayName;
 

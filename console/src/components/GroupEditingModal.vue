@@ -4,13 +4,13 @@ import { computed, nextTick, ref, watch } from "vue";
 import apiClient from "@/utils/api-client";
 import cloneDeep from "lodash.clonedeep";
 import { useMagicKeys } from "@vueuse/core";
-import type { PhotoGroup } from "@/types";
+import type { MovieTaskGroup } from "@/types";
 import { reset, submitForm } from "@formkit/core";
 
 const props = withDefaults(
   defineProps<{
     visible: boolean;
-    group: PhotoGroup | null;
+    group: MovieTaskGroup | null;
   }>(),
   {
     visible: false,
@@ -23,7 +23,7 @@ const emit = defineEmits<{
   (event: "close"): void;
 }>();
 
-const initialFormState: PhotoGroup = {
+const initialFormState: MovieTaskGroup = {
   apiVersion: "core.halo.run/v1alpha1",
   kind: "PhotoGroup",
   metadata: {
@@ -39,7 +39,7 @@ const initialFormState: PhotoGroup = {
   },
 };
 
-const formState = ref<PhotoGroup>(initialFormState);
+const formState = ref<MovieTaskGroup>(initialFormState);
 const saving = ref(false);
 
 const isUpdateMode = computed(() => {
@@ -67,12 +67,12 @@ const handleCreateOrUpdateGroup = async () => {
     saving.value = true;
     if (isUpdateMode.value) {
       await apiClient.put(
-        `/apis/core.halo.run/v1alpha1/photogroups/${formState.value.metadata.name}`,
+        `/apis/core.halo.run/v1alpha1/movietaskgroups/${formState.value.metadata.name}`,
         formState.value
       );
     } else {
       await apiClient.post(
-        "/apis/core.halo.run/v1alpha1/photogroups",
+        "/apis/core.halo.run/v1alpha1/movietaskgroups",
         formState.value
       );
     }

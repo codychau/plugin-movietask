@@ -21,14 +21,14 @@ import GroupList from "../components/GroupList.vue";
 import PhotoEditingModal from "@/components/PhotoEditingModal.vue";
 import LazyImage from "@/components/LazyImage.vue";
 import apiClient from "@/utils/api-client";
-import type { Photo, PhotoList } from "@/types";
+import type { MovieTask, MovieTaskList } from "@/types";
 import Fuse from "fuse.js";
 import RiImage2Line from "~icons/ri/image-2-line";
 import type { AttachmentLike } from "@halo-dev/console-shared";
 import { useQuery } from "@tanstack/vue-query";
 
-const selectedPhoto = ref<Photo | undefined>();
-const selectedPhotos = ref<Set<Photo>>(new Set<Photo>());
+const selectedPhoto = ref<MovieTask | undefined>();
+const selectedPhotos = ref<Set<MovieTask>>(new Set<MovieTask>());
 const selectedGroup = ref<string>();
 const editingModal = ref(false);
 const checkedAll = ref(false);
@@ -44,14 +44,14 @@ const {
   data: photos,
   isLoading,
   refetch,
-} = useQuery<Photo[]>({
+} = useQuery<MovieTask[]>({
   queryKey: [page, size, keyword, selectedGroup],
   queryFn: async () => {
     if (!selectedGroup.value) {
       return [];
     }
-    const { data } = await apiClient.get<PhotoList>(
-      "/apis/api.plugin.halo.run/v1alpha1/plugins/PluginPhotos/photos",
+    const { data } = await apiClient.get<MovieTaskList>(
+      "/apis/api.plugin.halo.run/v1alpha1/plugins/PluginMovieTask/movietask",
       {
         params: {
           page: page.value,
@@ -119,7 +119,7 @@ const handleSelectNext = () => {
   }
 };
 
-const handleOpenEditingModal = (photo?: Photo) => {
+const handleOpenEditingModal = (photo?: MovieTask) => {
   selectedPhoto.value = photo;
   editingModal.value = true;
 };
@@ -133,7 +133,7 @@ const handleDeleteInBatch = () => {
       try {
         const promises = Array.from(selectedPhotos.value).map((photo) => {
           return apiClient.delete(
-            `/apis/core.halo.run/v1alpha1/photos/${photo.metadata.name}`
+            `/apis/core.halo.run/v1alpha1/movietask/${photo.metadata.name}`
           );
         });
         await Promise.all(promises);
@@ -161,7 +161,7 @@ const handleCheckAll = (checkAll: boolean) => {
   }
 };
 
-const isChecked = (photo: Photo) => {
+const isChecked = (photo: MovieTask) => {
   return (
     photo.metadata.name === selectedPhoto.value?.metadata.name ||
     Array.from(selectedPhotos.value)
@@ -178,7 +178,7 @@ watch(
 );
 
 // search
-let fuse: Fuse<Photo> | undefined = undefined;
+let fuse: Fuse<MovieTask> | undefined = undefined;
 
 watch(
   () => photos.value,
@@ -279,7 +279,7 @@ const onAttachmentsSelect = async (attachments: AttachmentLike[]) => {
   }
 
   const createRequests = photos.map((photo) => {
-    return apiClient.post<Photo>("/apis/core.halo.run/v1alpha1/photos", {
+    return apiClient.post<MovieTask>("/apis/core.halo.run/v1alpha1/movietask", {
       metadata: {
         name: "",
         generateName: "photo-",
@@ -303,7 +303,7 @@ const groupSelectHandle = (group?: string) => {
 const pageRefetch = async () => {
   await groupListRef.value.refetch();
   await refetch();
-  selectedPhotos.value = new Set<Photo>();
+  selectedPhotos.value = new Set<MovieTask>();
 };
 </script>
 <template>

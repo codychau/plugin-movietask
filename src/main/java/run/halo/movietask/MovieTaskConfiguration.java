@@ -1,4 +1,4 @@
-package run.halo.photos;
+package run.halo.movietask;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -8,13 +8,13 @@ import org.springframework.web.reactive.function.server.ServerResponse;
 import run.halo.app.core.extension.endpoint.CustomEndpoint;
 
 /**
- * Photo configuration.
+ * MovieTask configuration.
  *
- * @author LIlGG
+ * @author cody
  * @since 1.0.0
  */
 @Configuration
-public class PhotoConfiguration {
+public class MovieTaskConfiguration {
     
     /**
      * Register custom endpoints.

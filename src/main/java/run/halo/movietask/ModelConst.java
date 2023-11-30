@@ -1,4 +1,4 @@
-package run.halo.photos;
+package run.halo.movietask;
 
 /**
  * Static variable keys for view model.

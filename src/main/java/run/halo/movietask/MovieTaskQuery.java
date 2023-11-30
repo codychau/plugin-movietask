@@ -1,4 +1,4 @@
-package run.halo.photos;
+package run.halo.movietask;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.apache.commons.lang3.StringUtils;
@@ -12,9 +12,9 @@ import run.halo.app.extension.router.IListRequest;
  * @author LIlGG
  * @since 1.0.0
  */
-public class PhotoQuery extends IListRequest.QueryListRequest {
-    
-    public PhotoQuery(MultiValueMap<String, String> queryParams) {
+public class MovieTaskQuery extends IListRequest.QueryListRequest {
+
+    public MovieTaskQuery(MultiValueMap<String, String> queryParams) {
         super(queryParams);
     }
     
@@ -32,9 +32,9 @@ public class PhotoQuery extends IListRequest.QueryListRequest {
     }
     
     @Schema(description = "Photo collation.")
-    public PhotoSorter getSort() {
+    public MovieTaskSorter getSort() {
         String sort = queryParams.getFirst("sort");
-        return PhotoSorter.convertFrom(sort);
+        return MovieTaskSorter.convertFrom(sort);
     }
     
     @Schema(description = "ascending order If it is true; otherwise, it is in descending order.")

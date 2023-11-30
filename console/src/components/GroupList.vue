@@ -12,8 +12,8 @@ import {
   VDropdownItem,
 } from "@halo-dev/components";
 import GroupEditingModal from "./GroupEditingModal.vue";
-import type { PhotoGroup } from "@/types";
-import type { PhotoGroupList } from "@/types";
+import type { MovieTaskGroup } from "@/types";
+import type { MovieTaskGroupList } from "@/types";
 import { ref } from "vue";
 import Draggable from "vuedraggable";
 import apiClient from "@/utils/api-client";
@@ -27,15 +27,15 @@ const emit = defineEmits<{
 const loading = ref(false);
 const groupEditingModal = ref(false);
 
-const updateGroup = ref<PhotoGroup>();
+const updateGroup = ref<MovieTaskGroup>();
 
 const selectedGroup = useRouteQuery<string>("photo-group");
 
-const { data: groups, refetch } = useQuery<PhotoGroup[]>({
+const { data: groups, refetch } = useQuery<MovieTaskGroup[]>({
   queryKey: [],
   queryFn: async () => {
-    const { data } = await apiClient.get<PhotoGroupList>(
-      "/apis/api.plugin.halo.run/v1alpha1/plugins/PluginPhotos/photogroups"
+    const { data } = await apiClient.get<MovieTaskGroupList>(
+      "/apis/api.plugin.halo.run/v1alpha1/plugins/PluginMovieTask/movietaskgroups"
     );
     return data.items
       .map((group) => {
@@ -76,7 +76,7 @@ const { data: groups, refetch } = useQuery<PhotoGroup[]>({
 
 const handleSaveInBatch = async () => {
   try {
-    const promises = groups.value?.map((group: PhotoGroup, index) => {
+    const promises = groups.value?.map((group: MovieTaskGroup, index) => {
       if (group.spec) {
         group.spec.priority = index;
       }
@@ -95,7 +95,7 @@ const handleSaveInBatch = async () => {
   }
 };
 
-const handleDelete = async (group: PhotoGroup) => {
+const handleDelete = async (group: MovieTaskGroup) => {
   Dialog.warning({
     title: "确定要删除该分类吗？",
     description: "将同时删除该分类下的所有图片，该操作不可恢复。",
@@ -103,7 +103,7 @@ const handleDelete = async (group: PhotoGroup) => {
     onConfirm: async () => {
       try {
         await apiClient.delete(
-          `/apis/api.plugin.halo.run/v1alpha1/plugins/PluginPhotos/photogroups/${group.metadata.name}`
+          `/apis/api.plugin.halo.run/v1alpha1/plugins/PluginMovieTask/movietaskgroups/${group.metadata.name}`
         );
         refetch();
       } catch (e) {
@@ -113,12 +113,12 @@ const handleDelete = async (group: PhotoGroup) => {
   });
 };
 
-const handleOpenEditingModal = (group?: PhotoGroup) => {
+const handleOpenEditingModal = (group?: MovieTaskGroup) => {
   groupEditingModal.value = true;
   updateGroup.value = group;
 };
 
-const handleSelectedClick = (group: PhotoGroup) => {
+const handleSelectedClick = (group: MovieTaskGroup) => {
   selectedGroup.value = group.metadata.name;
   emit("select", group.metadata.name);
 };

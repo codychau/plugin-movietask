@@ -1,10 +1,10 @@
-package run.halo.photos.finders;
+package run.halo.movietask.finders;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 import run.halo.app.extension.ListResult;
-import run.halo.photos.vo.PhotoGroupVo;
-import run.halo.photos.vo.PhotoVo;
+import run.halo.movietask.vo.MovieTaskGroupVo;
+import run.halo.movietask.vo.MovieTaskVo;
 
 
 /**
@@ -12,14 +12,14 @@ import run.halo.photos.vo.PhotoVo;
  *
  * @author LIlGG
  */
-public interface PhotoFinder {
+public interface MovieTaskFinder {
     
     /**
      * List all photos.
      *
      * @return a flux of photo vo
      */
-    Flux<PhotoVo> listAll();
+    Flux<MovieTaskVo> listAll();
     
     /**
      * List photos by page.
@@ -28,17 +28,17 @@ public interface PhotoFinder {
      * @param size page size
      * @return a mono of list result
      */
-    Mono<ListResult<PhotoVo>> list(Integer page, Integer size);
+    Mono<ListResult<MovieTaskVo>> list(Integer page, Integer size);
     
     /**
      * List photos by page and group.
      *
-     * @param page  page number
-     * @param size  page size
+     * @param page page number
+     * @param size page size
      * @param group group name
      * @return a mono of list result
      */
-    Mono<ListResult<PhotoVo>> list(Integer page, Integer size, String group);
+    Mono<ListResult<MovieTaskVo>> list(Integer page, Integer size, String group);
     
     /**
      * List photos by group.
@@ -46,12 +46,12 @@ public interface PhotoFinder {
      * @param group group name
      * @return a flux of photo vo
      */
-    Flux<PhotoVo> listBy(String group);
+    Flux<MovieTaskVo> listBy(String group);
     
     /**
      * List all groups.
      *
      * @return a flux of photo group vo
      */
-    Flux<PhotoGroupVo> groupBy();
+    Flux<MovieTaskGroupVo> groupBy();
 }

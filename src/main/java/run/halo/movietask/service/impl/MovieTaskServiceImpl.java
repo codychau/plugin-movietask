@@ -1,47 +1,47 @@
-package run.halo.photos.service.impl;
+package run.halo.movietask.service.impl;
 
-import static run.halo.app.extension.router.selector.SelectorUtil.labelAndFieldSelectorToPredicate;
-
-import java.util.Comparator;
-import java.util.function.Predicate;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Mono;
 import run.halo.app.extension.Extension;
 import run.halo.app.extension.ListResult;
 import run.halo.app.extension.ReactiveExtensionClient;
-import run.halo.photos.Photo;
-import run.halo.photos.PhotoQuery;
-import run.halo.photos.PhotoSorter;
-import run.halo.photos.service.PhotoService;
+import run.halo.movietask.MovieTask;
+import run.halo.movietask.MovieTaskQuery;
+import run.halo.movietask.MovieTaskSorter;
+import run.halo.movietask.service.MovieTaskService;
+
+import java.util.Comparator;
+import java.util.function.Predicate;
+
+import static run.halo.app.extension.router.selector.SelectorUtil.labelAndFieldSelectorToPredicate;
 
 /**
- * Service implementation for {@link Photo}.
+ * Service implementation for {@link MovieTask}.
  *
  * @author LIlGG
  * @since 1.0.0
  */
 @Component
-public class PhotoServiceImpl implements PhotoService {
-    
+public class MovieTaskServiceImpl implements MovieTaskService {
+
     private final ReactiveExtensionClient client;
-    
-    public PhotoServiceImpl(ReactiveExtensionClient client) {
+
+    public MovieTaskServiceImpl(ReactiveExtensionClient client) {
         this.client = client;
     }
     
-    @Override
-    public Mono<ListResult<Photo>> listPhoto(PhotoQuery query) {
-        Comparator<Photo> comparator = PhotoSorter.from(query.getSort(),
+    public Mono<ListResult<MovieTask>> listPhoto(MovieTaskQuery query) {
+        Comparator<MovieTask> comparator = MovieTaskSorter.from(query.getSort(),
             query.getSortOrder()
         );
-        return this.client.list(Photo.class, photoListPredicate(query),
+        return this.client.list(MovieTask.class, photoListPredicate(query),
             comparator, query.getPage(), query.getSize()
         );
     }
     
-    Predicate<Photo> photoListPredicate(PhotoQuery query) {
-        Predicate<Photo> predicate = photo -> true;
+    Predicate<MovieTask> photoListPredicate(MovieTaskQuery query) {
+        Predicate<MovieTask> predicate = photo -> true;
         String keyword = query.getKeyword();
         
         if (keyword != null) {

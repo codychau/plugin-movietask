@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IconSave, VButton, VModal } from "@halo-dev/components";
 import { computed, nextTick, ref, watch } from "vue";
-import type { Photo } from "@/types";
+import type { MovieTask } from "@/types";
 import apiClient from "@/utils/api-client";
 import cloneDeep from "lodash.clonedeep";
 import { reset, submitForm } from "@formkit/core";
@@ -9,7 +9,7 @@ import { reset, submitForm } from "@formkit/core";
 const props = withDefaults(
   defineProps<{
     visible: boolean;
-    photo?: Photo;
+    photo?: MovieTask;
     group?: string;
   }>(),
   {
@@ -22,10 +22,10 @@ const props = withDefaults(
 const emit = defineEmits<{
   (event: "update:visible", value: boolean): void;
   (event: "close"): void;
-  (event: "saved", photo: Photo): void;
+  (event: "saved", photo: MovieTask): void;
 }>();
 
-const initialFormState: Photo = {
+const initialFormState: MovieTask = {
   metadata: {
     name: "",
     generateName: "photo-",
@@ -38,9 +38,9 @@ const initialFormState: Photo = {
   },
   kind: "Photo",
   apiVersion: "core.halo.run/v1alpha1",
-} as Photo;
+} as MovieTask;
 
-const formState = ref<Photo>(cloneDeep(initialFormState));
+const formState = ref<MovieTask>(cloneDeep(initialFormState));
 
 const saving = ref<boolean>(false);
 
@@ -100,16 +100,16 @@ const handleSavePhoto = async () => {
   try {
     saving.value = true;
     if (isUpdateMode.value) {
-      await apiClient.put<Photo>(
-        `/apis/core.halo.run/v1alpha1/photos/${formState.value.metadata.name}`,
+      await apiClient.put<MovieTask>(
+        `/apis/core.halo.run/v1alpha1/movietask/${formState.value.metadata.name}`,
         formState.value
       );
     } else {
       if (props.group) {
         formState.value.spec.groupName = props.group;
       }
-      const { data } = await apiClient.post<Photo>(
-        `/apis/core.halo.run/v1alpha1/photos`,
+      const { data } = await apiClient.post<MovieTask>(
+        `/apis/core.halo.run/v1alpha1/movietask`,
         formState.value
       );
       emit("saved", data);

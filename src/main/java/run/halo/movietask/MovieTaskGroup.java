@@ -1,4 +1,4 @@
-package run.halo.photos;
+package run.halo.movietask;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -12,18 +12,18 @@ import run.halo.app.extension.GVK;
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@GVK(group = "core.halo.run", version = "v1alpha1", kind = "PhotoGroup",
-    plural = "photogroups", singular = "photogroup")
-public class PhotoGroup extends AbstractExtension {
+@GVK(group = "core.halo.run", version = "v1alpha1", kind = "MovieTaskGroup",
+    plural = "movietaskgroups", singular = "movietaskgroup")
+public class MovieTaskGroup extends AbstractExtension {
 
     @Schema(required = true)
-    private PhotoGroupSpec spec;
+    private MovieTaskGroupSpec spec;
 
     @Schema
     private PostGroupStatus status;
 
     @Data
-    public static class PhotoGroupSpec {
+    public static class MovieTaskGroupSpec {
         @Schema(required = true)
         private String displayName;
 
